@@ -1,0 +1,10 @@
+  - platform: template
+    sensors:
+       sileno_charging:
+         friendly_name: "Sileno charging"
+         device_class: plug
+         value_template: "{{ states.sensor.sileno.attributes.charging}}"
+       sileno_manual_mode:
+         friendly_name: "Sileno in manual mode"
+         value_template: "{{ states.sensor.sileno.attributes.in_manual_mode }}"
+

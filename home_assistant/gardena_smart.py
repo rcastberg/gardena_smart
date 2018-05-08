@@ -85,7 +85,7 @@ class gardena_smart(Entity):
             _LOGGER.debug("Using auto dev id: " + self.gardena.get_devices_in_catagory('mower')[0])
             mower_info = self.gardena.get_mower_info(self.gardena.get_devices_in_catagory('mower')[0])
         _LOGGER.debug('State: ' + str(mower_info))
-        self._state = json.dumps(mower_info)
+        self._state = json.dumps(mower_info['status'])
         self._attributes = mower_info
 
     @property
