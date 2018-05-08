@@ -53,7 +53,7 @@ class Gardena(object):
         self.device_info = device_info
     def get_devices_in_catagory(self, category):
         """Return devices matching a category, should be mower, gateway, sensor """
-        return [i['id'] for i in gardena.raw_devices['devices']  if i['category']==category]
+        return [i['id'] for i in self.raw_devices['devices']  if i['category']==category]
     def get_mower_name(self, id):
         return self.device_info[id]['name']
     def get_mower_device_state(self, id):
