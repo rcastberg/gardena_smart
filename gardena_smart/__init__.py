@@ -61,37 +61,37 @@ class Gardena(object):
     def get_mower_last_online(self, id):
         return self.device_info[id]['abilities'][0]['properties'][5]['value']
     def get_mower_battery_level(self, id):
-        return gardena.device_info[id]['abilities'][1]['properties'][0]['value']
+        return self.device_info[id]['abilities'][1]['properties'][0]['value']
     def get_mower_charging_status(self, id):
-        return gardena.device_info[id]['abilities'][1]['properties'][1]['value']
+        return self.device_info[id]['abilities'][1]['properties'][1]['value']
     def get_mower_radio_quality(self, id):
-        return gardena.device_info[id]['abilities'][2]['properties'][0]['value']
+        return self.device_info[id]['abilities'][2]['properties'][0]['value']
     def get_mower_radio_status(self, id):
-        return gardena.device_info[id]['abilities'][2]['properties'][2]['value']
+        return self.device_info[id]['abilities'][2]['properties'][2]['value']
     def get_mower_radio_connection_status(self, id):
-        return gardena.device_info[id]['abilities'][2]['properties'][1]['value']
+        return self.device_info[id]['abilities'][2]['properties'][1]['value']
     def get_mower_manual_mode(self, id):
-        return gardena.device_info[id]['abilities'][3]['properties'][0]['value']
+        return self.device_info[id]['abilities'][3]['properties'][0]['value']
     def get_mower_status(self, id):
-        return gardena.device_info[id]['abilities'][3]['properties'][1]['value']
+        return self.device_info[id]['abilities'][3]['properties'][1]['value']
     def get_mower_error(self, id):
         """Return error and last ts"""
-        error = gardena.device_info[id]['abilities'][3]['properties']
+        error = self.device_info[id]['abilities'][3]['properties']
         return (error[2]['value'], error[7]['value'])
     def get_mower_last_error(self, id):
-        return gardena.device_info[id]['abilities'][3]['properties'][3]['value']
+        return self.device_info[id]['abilities'][3]['properties'][3]['value']
     def get_mower_next_source_start(self, id):
-        return gardena.device_info[id]['abilities'][3]['properties'][4]['value']
+        return self.device_info[id]['abilities'][3]['properties'][4]['value']
     def get_mower_next_start(self, id):
-        return gardena.device_info[id]['abilities'][3]['properties'][5]['value']
+        return self.device_info[id]['abilities'][3]['properties'][5]['value']
     def get_mower_cutting_time(self, id):
-        return gardena.device_info[id]['abilities'][4]['properties'][0]['value']
+        return self.device_info[id]['abilities'][4]['properties'][0]['value']
     def get_mower_charging_cycles(self, id):
-        return gardena.device_info[id]['abilities'][4]['properties'][1]['value']
+        return self.device_info[id]['abilities'][4]['properties'][1]['value']
     def get_mower_collisions(self, id):
-        return gardena.device_info[id]['abilities'][4]['properties'][2]['value']
+        return self.device_info[id]['abilities'][4]['properties'][2]['value']
     def get_mower_running_time(self, id):
-        return gardena.device_info[id]['abilities'][4]['properties'][3]['value']
+        return self.device_info[id]['abilities'][4]['properties'][3]['value']
     def get_mower_info(self, id):
         mower_info = {}
         mower_info['name'] = self.get_mower_name(id)
