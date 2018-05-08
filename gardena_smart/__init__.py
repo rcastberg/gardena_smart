@@ -48,7 +48,7 @@ class Gardena(object):
         response_data = json.loads(response.content.decode('utf-8'))
         self.raw_devices = response_data
         device_info = {}
-        for i in self.gardena.raw_devices['devices']:
+        for i in self.raw_devices['devices']:
             device_info[i['id']]=i
         self.device_info = device_info
     def get_devices_in_catagory(self, category):
