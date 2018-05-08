@@ -17,12 +17,13 @@ from deps.gardena_smart import *
 
 _LOGGER = logging.getLogger(__name__)
 
-CONF_device_id = 'device_id'
-
+CONF_ID = 'id'
+CONF_LOCATION_ID = 'location'
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_USERNAME): cv.string,
     vol.Required(CONF_PASSWORD): cv.string,
-    vol.Optional(CONF_ID): cv.string
+    vol.Optional(CONF_ID): cv.string,
+    vol.Optional(CONF_LOCATION_ID): cv.string
 })
 
 SCAN_INTERVAL = timedelta(seconds=300)
@@ -34,18 +35,23 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
     username = config.get(CONF_USERNAME)
     password = config.get(CONF_PASSWORD)
     device_id = config.get(CONF_ID)
-    add_devices([gardena_smart(username, password, device_id)])
+    location_id = config.get(CONF_LOCATION_ID)
+    add_devices([gardena_smart(username, password, location_id, device_id)])
 
 
 class gardena_smart(Entity):
     """Representation of a Sensor."""
 
-    def __init__(self, username, password, device_id):
+    def __init__(self, username, password, location_id, device_id):
         """Initialize the sensor."""
         _LOGGER.debug('Initializing...')
-        self.gardena = gardena(email_address=username, password=password)
+        self.gardena = Gardena(email_address=username, password=password)
         #Use first location
-        self.devices = gardena.get_devices(locationID=gardena.locations[0][0])
+        _LOGGER.debug('Current Location : ' + str(location_id))
+        if location_id is not None:
+            self.devices = self.gardena.get_devices(locationID=location_id)
+        else:
+            self.devices = self.gardena.get_devices(locationID=self.gardena.locations[0][0])
         self.device_id = device_id
         self._state = None
         self._attributes = []
@@ -72,10 +78,12 @@ class gardena_smart(Entity):
         This is the only method that should fetch new data for Home Assistant.
         """
         _LOGGER.debug('Returning current state...')
+        _LOGGER.debug('Current dev_id ' + str(self.device_id))
         if self.device_id is not None:
-            mower_info = gardena.get_mower_info(self.device_id)
+            mower_info = self.gardena.get_mower_info(self.device_id)
         else:
-            mower_info = gardena.get_mower_info(gardena.get_devices_in_catagory('mower')[0])
+            _LOGGER.debug("Using auto dev id: " + self.gardena.get_devices_in_catagory('mower')[0])
+            mower_info = self.gardena.get_mower_info(self.gardena.get_devices_in_catagory('mower')[0])
         _LOGGER.debug('State: ' + str(mower_info))
         self._state = json.dumps(mower_info)
         self._attributes = mower_info
