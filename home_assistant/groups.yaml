@@ -1,0 +1,13 @@
+    Sileno:
+        name: Gardena Sileno
+        entities:
+          - sensor.sileno_battery_level
+          - sensor.sileno_charge_cycles
+          - sensor.sileno_collisions
+          - sensor.sileno_cutting_time
+          - sensor.sileno_error
+          - sensor.sileno_error_time
+          - sensor.sileno_next_start_source
+          - sensor.sileno_next_start_time
+          - binary_sensor.sileno_charging
+          - binary_sensor.sileno_manual_mode

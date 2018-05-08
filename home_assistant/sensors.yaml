@@ -9,26 +9,26 @@
         unit_of_measurement: '%'
       sileno_charge_cycles:
         friendly_name: "Sileno charge cycles"
-        value_template: "{{ states.sensor.surepet_connect.attributes.charge_cycles }}"
+        value_template: "{{ states.sensor.sileno.attributes.charge_cycles }}"
         unit_of_measurement: ''
       sileno_collisions:
         friendly_name: "Sileno number of collisions"
-        value_template: "{{ states.sensor.surepet_connect.attributes.collisions }}"
+        value_template: "{{ states.sensor.sileno.attributes.collisions }}"
         unit_of_measurement: ''
       sileno_cutting_time:
         friendly_name: "Sileno cutting time"
-        value_template: "{{ states.sensor.surepet_connect.attributes.cutting_time }}"
+        value_template: "{{ states.sensor.sileno.attributes.cutting_time }}"
         unit_of_measurement: hours
       sileno_error:
         friendly_name: "Sileno error"
-        value_template: "{{ states.sensor.surepet_connect.attributes.error }}"
+        value_template: "{{ states.sensor.sileno.attributes.error }}"
       sileno_error_time:
         friendly_name: "Sileno error time"
-        value_template: "{{ states.sensor.surepet_connect.attributes.error_time }}"
+        value_template: "{{ states.sensor.sileno.attributes.error_time }}"
         unit_of_measurement: hours
       sileno_next_start_time:
         friendly_name: "Sileno next start time"
-        value_template: "{{ states.sensor.surepet_connect.attributes.next_start }}"
+        value_template: "{{ states.sensor.sileno.attributes.next_start }}"
       sileno_next_start_source:
         friendly_name: "Sileno start source"
-        value_template: "{{ states.sensor.surepet_connect.attributes.next_source_for_start }}"
+        value_template: "{{ states.sensor.sileno.attributes.next_source_for_start }}"
