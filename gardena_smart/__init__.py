@@ -123,7 +123,7 @@ class Gardena(object):
         if ETag is not None:
             headers['If-None-Match'] = ETag
         return headers
-    def convert_python_dt(dt_str):
+    def convert_python_dt(self, dt_str):
         from dateutil import tz
         import datetime as dt
         from_zone = tz.tzutc()
