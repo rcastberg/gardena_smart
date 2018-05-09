@@ -1,4 +1,4 @@
-  - platform: gardena_smart
+  r platform: gardena_smart
     username : !secret gardena_user
     password : !secret gardena_password
   - platform: template
@@ -25,7 +25,6 @@
       sileno_error_time:
         friendly_name: "Sileno error time"
         value_template: "{{ states.sensor.sileno.attributes.error_time }}"
-        unit_of_measurement: hours
       sileno_next_start_time:
         friendly_name: "Sileno next start time"
         value_template: "{{ states.sensor.sileno.attributes.next_start }}"

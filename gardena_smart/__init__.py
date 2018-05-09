@@ -96,7 +96,7 @@ class Gardena(object):
         mower_info = {}
         mower_info['name'] = self.get_mower_name(id)
         mower_info['dev_state'] = self.get_mower_device_state(id)
-        mower_info['last_online'] = self.get_mower_last_online(id)
+        mower_info['last_online'] = self.convert_python_dt(self.get_mower_last_online(id))
         mower_info['battery_level']  = self.get_mower_battery_level(id)
         mower_info['charging_satus'] = self.get_mower_charging_status(id)
         mower_info['radio_quality'] = self.get_mower_radio_quality(id)
@@ -105,11 +105,11 @@ class Gardena(object):
         mower_info['in_manual_mode'] = self.get_mower_manual_mode(id)
         mower_info['status'] = self.get_mower_status(id)
         mower_info['error'] = self.get_mower_error(id)[0]
-        mower_info['error_time'] = self.get_mower_error(id)[1]
+        mower_info['error_time'] = self.convert_python_dt(self.get_mower_error(id)[1])
         mower_info['last_error_msg'] = self.get_mower_last_error(id)
         mower_info['next_source_for_start']=self.get_mower_next_source_start(id)
         mower_info['next_start'] = self.get_mower_next_start(id)
-        mower_info['cutting_time'] = self.get_mower_cutting_time(id)
+        mower_info['cutting_time'] = self.convert_python_dt(self.get_mower_cutting_time(id))
         mower_info['charge_cycles'] = self.get_mower_charging_cycles(id)
         mower_info['collisions'] = self.get_mower_collisions(id)
         mower_info['running_time'] = self.get_mower_running_time(id)
@@ -123,6 +123,23 @@ class Gardena(object):
         if ETag is not None:
             headers['If-None-Match'] = ETag
         return headers
+    def convert_python_dt(dt_str):
+        from dateutil import tz
+        import datetime as dt
+        from_zone = tz.tzutc()
+        to_zone = tz.tzlocal()
+        #We have two different formats:
+        if len(dt_str) == 24:
+            assert dt_str[-1] == 'Z'
+            dt_str = dt_str[:-1] + '000UTC'
+            gardena_dt = dt.datetime.strptime(dt_str, '%Y-%m-%dT%H:%M:%S.%f%Z')
+        elif len(dt_str) == 17:
+            assert dt_str[-1] == 'Z'
+            dt_str = dt_str[:-1] + 'UTC'
+            gardena_dt = dt.datetime.strptime(dt_str, '%Y-%m-%dT%H:%M%Z')
+        utc_dt = gardena_dt.replace(tzinfo=from_zone)
+        local_dt = utc_dt.astimezone(to_zone)
+        return local_dt
     def debug_print(self, string):
         if self.debug:
             print(string)
