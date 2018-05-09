@@ -128,15 +128,21 @@ class Gardena(object):
         import datetime as dt
         from_zone = tz.tzutc()
         to_zone = tz.tzlocal()
-        #We have two different formats:
+        #We have different formats:
         if len(dt_str) == 24:
             assert dt_str[-1] == 'Z'
             dt_str = dt_str[:-1] + '000UTC'
             gardena_dt = dt.datetime.strptime(dt_str, '%Y-%m-%dT%H:%M:%S.%f%Z')
+        elif len(dt_str) == 20:
+            assert dt_str[-1] == 'Z'
+            dt_str = dt_str[:-1] + 'UTC'
+            gardena_dt = dt.datetime.strptime(dt_str, '%Y-%m-%dT%H:%M:%S%Z')
         elif len(dt_str) == 17:
             assert dt_str[-1] == 'Z'
             dt_str = dt_str[:-1] + 'UTC'
             gardena_dt = dt.datetime.strptime(dt_str, '%Y-%m-%dT%H:%M%Z')
+        else:
+            raise ValueError('Invalid date format : ' + dt_str)
         utc_dt = gardena_dt.replace(tzinfo=from_zone)
         local_dt = utc_dt.astimezone(to_zone)
         return local_dt
