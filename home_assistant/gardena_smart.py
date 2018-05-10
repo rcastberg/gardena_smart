@@ -48,6 +48,7 @@ class gardena_smart(Entity):
         self.gardena = Gardena(email_address=username, password=password)
         #Use first location
         _LOGGER.debug('Current Location : ' + str(location_id))
+        self.location_id = location_id
         if location_id is not None:
             self.devices = self.gardena.get_devices(locationID=location_id)
         else:
@@ -79,6 +80,10 @@ class gardena_smart(Entity):
         """
         _LOGGER.debug('Returning current state...')
         _LOGGER.debug('Current dev_id ' + str(self.device_id))
+        if self.location_id is not None:
+            self.devices = self.gardena.get_devices(locationID=self.location_id)
+        else:
+            self.devices = self.gardena.get_devices(locationID=self.gardena.locations[0][0])
         if self.device_id is not None:
             mower_info = self.gardena.get_mower_info(self.device_id)
         else:
