@@ -16,7 +16,7 @@
         value_template: "{{ states.sensor.sileno.attributes.collisions }}"
         unit_of_measurement: ''
       sileno_cutting_time:
-        friendly_name: "Sileno cutting time"
+        friendly_name: "Sileno total_cutting time"
         value_template: "{{ states.sensor.sileno.attributes.cutting_time }}"
         unit_of_measurement: hours
       sileno_error:
