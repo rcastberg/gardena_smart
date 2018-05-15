@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='gardena_smart',
-      version='0.1',
+      version='0.11b1',
       description='Library to access the gardena smart platform',
       url='http://github.com/rcastberg/gardena_smart',
       author='Rene Castberg',
