@@ -10,9 +10,7 @@ from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.const import CONF_USERNAME, CONF_PASSWORD
 import homeassistant.helpers.config_validation as cv
 
-from deps.gardena_smart import *
-
-#REQUIREMENTS = ['gardena_smart']
+REQUIREMENTS = ['gardena-smart==0.11b2']
 
 
 _LOGGER = logging.getLogger(__name__)
@@ -41,10 +39,10 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
 
 class gardena_smart(Entity):
     """Representation of a Sensor."""
-
     def __init__(self, username, password, location_id, device_id):
         """Initialize the sensor."""
         _LOGGER.debug('Initializing...')
+        from gardena_smart import Gardena
         self.gardena = Gardena(email_address=username, password=password)
         #Use first location
         _LOGGER.debug('Current Location : ' + str(location_id))
