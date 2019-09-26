@@ -54,7 +54,21 @@ class Gardena(object):
     def get_devices_in_catagory(self, category):
         """Return devices matching a category, should be mower, gateway, sensor """
         return [i['id'] for i in self.raw_devices['devices']  if i['category']==category]
-    def get_mower_name(self, id):
+    def get_water_name(self, id):
+		return self.device_info[id]['name']
+	def get_water_category(self, id):
+		return self.device_info[id]['category']
+	def get_water_battery_level(self, id):
+		return self.device_info[id]['abilities'][1]['properties'][0]['value']
+	def get_water_disposable_battery_status(self, id):
+		return self.device_info[id]['abilities'][1]['properties'][1]['value']
+	def get_water_radio_quality(self, id):
+		return self.device_info[id]['abilities'][2]['properties'][0]['value']
+	def get_water_connection_status(self, id):
+		return self.device_info[id]['abilities'][2]['properties'][1]['value']
+	def get_water_state(self, id):
+		return self.device_info[id]['abilities'][2]['properties'][2]['value']
+	def get_mower_name(self, id):
         return self.device_info[id]['name']
     def get_mower_device_state(self, id):
         return self.device_info[id]['device_state']
